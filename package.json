@@ -1,6 +1,6 @@
 {
   "name": "@kira905/dsh-diagnostics-extra",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "DeepSeek Harness (DSH) diagnostics & reconciliation utilities: image-attachment audit/fetch (TRANSPORT root cause), one-command health check (host / dsh & guard start times / port connections), and an owner-action scanner. Zero third-party runtime dependencies.",
   "license": "AGPL-3.0-only",
   "private": false,

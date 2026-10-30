@@ -3,7 +3,7 @@
 All notable changes to this project are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/); versions follow SemVer.
 
-## [Unreleased]
+## [0.1.2] - 2026-10-31
 
 ### Changed
 
