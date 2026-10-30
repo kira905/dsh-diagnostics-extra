@@ -7,9 +7,9 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); versions
 
 ### Changed
 
-- `owner-todo-scan.mjs`: dropped the redundant `长期库大扫除` alternative from `SKIP_DIR` — `大扫除`
-  already matches it as a substring, so directory-skipping semantics are unchanged (equivalence
-  check over 17 candidate names: 0 differences).
+- `owner-todo-scan.mjs`: dropped a redundant alternative from `SKIP_DIR` — the shorter entry
+  already matches the longer one as a substring, so directory-skipping semantics are unchanged
+  (equivalence check over 17 candidate names: 0 differences).
 
 ## [0.1.0] - 2026-10-19
 

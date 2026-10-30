@@ -196,7 +196,7 @@ const peerDocs = [];
 const PEER_NAME = String(process.env.DSH_PEER_LABEL || "对端机").trim();
 const PEER_RE = PEER_NAME.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const PEER = new RegExp(`(?:${PEER_RE} ?侧执行|主人在 ?${PEER_RE}|主人上 ?${PEER_RE}|照本单执行|待 ?${PEER_RE} ?侧|${PEER_RE} ?侧照|交给 ?${PEER_RE}|开 ?${PEER_RE}|${PEER_RE} ?侧重|${PEER_RE} ?侧按)`);
-// 跳过的目录名：「大扫除」已覆盖「长期库大扫除」（前者是后者的子串）⇒ 不再单列，语义不变。
+// 跳过的目录名：最后一项已覆盖更长的那个同类目名（前者是后者的子串）⇒ 不再单列，语义不变。
 const SKIP_DIR = /(变更流水|管家报告|坑库|_archive|大扫除)/;
 const NAME_HINT = /(执行单|执行清单|执行卡|作业方案|接线执行)/;
 // 不是执行单、且会自指造成回环的文档：本工具自己生成的清单（它整篇都在复述对端单的行，
