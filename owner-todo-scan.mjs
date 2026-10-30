@@ -30,6 +30,7 @@ import process from "node:process";
 import { pathToFileURL } from "node:url";
 import { resolveDshHome, resolveDshWorkspace } from "./lib/dsh-home.mjs";
 import { firstH1Index, insertAtFor, stampDocMark } from "./lib/generated-docs.mjs"; // §2.2 权威源（档级标记）
+import { cliGuard } from "./lib/cli-args.mjs";
 // 升级锁现场（③ 包 C-6 段①②的第三处视图）：判据唯一源 = lib/upgrade-lock.mjs 的 status()
 // —— **绝不在此复制判定逻辑**（锁的心跳/pid 判据改一处就够）。
 // ⚠️ 该模块是**可选依赖**：它属于 DSH 生态内核（私有工具树），本仓不下发 ⇒ 改为动态加载 + 降级（见下方「可选内核」段）。
@@ -46,6 +47,21 @@ const HOME = resolveDshHome();
 // 这三个判据的真实实现长在 DSH 私有工具树（dsh-butler/lib）里，本仓不下发：
 //   · 目录存在 ⇒ 行为与私有树逐字一致；
 //   · 目录不存在 ⇒ 升级锁本节显式打印「不可探测」并继续；另两节静默跳过（它们是噪音源，不是"有你的事"）。
+const SPEC = {
+  cmd: 'dsh-owner-todo-scan',
+  summary: '把「等你操作 / 待拍板」的悬项从四处登记里合成一张清单（现场锁 / 看板卡 / 交接档 / 对端执行单）。',
+  usage: 'dsh-owner-todo-scan [--all] [--json] [--write]',
+  flags: [
+    { name: '--all', desc: '连已 done 卡里的历史段也扫（噪声多，兜底用）' },
+    { name: '--json', desc: '机器可读输出（含每条的档位判定）' },
+    { name: '--write', desc: '把清单整体重写成 docs 下的「待你操作-<设备>.md」' },
+  ],
+  writes: '默认只打印。--write 会整体重写一份 docs 下的清单文件（覆盖式刷新）。',
+  exits: '0 成功 · 1 采集异常 · 2 参数错误',
+  examples: ['dsh-owner-todo-scan', 'dsh-owner-todo-scan --json'],
+};
+cliGuard(SPEC);
+
 const TOOLS_DIR = process.env.DSH_TOOLS_DIR || path.join(resolveDshWorkspace(), "tools");
 const BUTLER_LIB = process.env.DSH_BUTLER_LIB || path.join(TOOLS_DIR, "dsh-butler", "lib");
 try {
