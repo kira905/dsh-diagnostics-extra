@@ -3,6 +3,14 @@
 All notable changes to this project are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/); versions follow SemVer.
 
+## [Unreleased]
+
+### Changed
+
+- `owner-todo-scan.mjs`: dropped the redundant `长期库大扫除` alternative from `SKIP_DIR` — `大扫除`
+  already matches it as a substring, so directory-skipping semantics are unchanged (equivalence
+  check over 17 candidate names: 0 differences).
+
 ## [0.1.0] - 2026-10-19
 
 ### Added
