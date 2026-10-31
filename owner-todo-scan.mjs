@@ -103,11 +103,11 @@ const overdueMs = OVERDUE_DAYS * DAY_MS;
 const UUID_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
 
 // 交接档「族键」：剥掉前缀 `交接-`、日期、尾部棒号（`第N棒` / `棒N` / `-N`）后去分隔符。
-// 同一主线的接力档（第8棒…第20棒）因此落进同一族 ⇒ 只有最新一份可能算「在途」。
+// 同一主线的接力档（序号后缀递增的那批）因此落进同一族 ⇒ 只有最新一份可能算「在途」。
 const handoffFamily = (name) => {
   let s = String(name).replace(/^交接-/, "").replace(/\.md$/i, "");
   s = s.replace(/(?:^|[-_ ])\d{8}(?=$|[-_ ])/g, "");          // 日期 YYYYMMDD
-  s = s.replace(/(?:[-_ ]*(?:第)?\d{1,3}棒)+$/g, "");          // 尾部 第8棒 / 棒2
+  s = s.replace(/(?:[-_ ]*(?:第)?\d{1,3}棒)+$/g, "");          // 尾部「第 N 棒」式序号后缀
   s = s.replace(/(?:[-_ ]+棒?\d{1,3})+$/g, "");                // 尾部 -20 / 棒20
   return s.replace(/[^\p{L}\p{N}.]+/gu, "").toLowerCase();
 };

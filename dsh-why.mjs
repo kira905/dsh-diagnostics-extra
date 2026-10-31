@@ -3,7 +3,7 @@
  * dsh-why.mjs — 只读「现状体检」：一条命令答清
  *   ① 现在跑在哪台机  ② dsh 与守护鱼何时起（谁先起；**dsh 主进程 = 3080 LISTEN 的 owner**，不靠命令行匹配）  ③ 3080 端口连接情况  ④ 守护鱼状态与日志尾
  *
- * 守护鱼口径（2026-10-08 订正 · 卡 b0cb242b）：
+ * 守护鱼口径（2026-10-08 订正）：
  *   「守护鱼」行**只表示 `guard.mjs` 本体**；本体 spawn 的 **launcher**（`node -e "(async function launcherMain …)"`，
  *   负责起 dsh 的那个子进程）单独一行显示，并标明它随每次 dsh 启动换新 —— 判「守护鱼换没换」只看本体 pid。
  *   旧版对所有命令行含 `guard` 的 node 候选「取最小 pid」，会随 pid 大小偶发报到 launcher 上（判据见 guardRoleOf）。
@@ -431,7 +431,7 @@ export function isMainModule() {
  *                命令行里带 `--pid-file <…>\Temp\dsh-guard\dsh-launcher-pid-<pid>.json` ⇒ 含 "guard" 字样
  *   null       = 与守护鱼无关（含 guard 字样但两者都不是 ⇒ 归 other，**绝不冒充守护鱼**）
  *
- * 为什么需要它（2026-10-08 · 卡 b0cb242b）：旧逻辑 `if (/guard/i.test(cmd))` 把 launcher 也算候选、再「取最小 pid」，
+ * 为什么需要它（2026-10-08）：旧逻辑 `if (/guard/i.test(cmd))` 把 launcher 也算候选、再「取最小 pid」，
  * 报谁的 pid 全看 pid 大小（10:33 实测 launcher 36580 < 本体 38996 ⇒ 报成 launcher）。
  * launcher 随每次 dsh 启动换新、**本体不变** ⇒ 误读会得出「守护鱼重启了」的错误结论。
  */
