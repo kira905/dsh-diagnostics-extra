@@ -1,5 +1,28 @@
 # dsh-diagnostics-extra · Diagnostics & reconciliation utilities for DSH
 
+> ### What this is
+> **Diagnostics and reconciliation utilities**: image-attachment audit and fetch, a one-command health check, and an owner-action scanner.
+>
+> ### What it solves
+> Three things that quietly become a mess: (1) are the images a session references still on disk, after a machine move or a cache clean; (2) is the thing healthy right now, in one command instead of ten; (3) what is waiting for a human, without relying on memory. Every tool here separates **"cannot read"** from **"nothing wrong"** — an unreadable environment exits 4, it does not report "all good".
+>
+> ### Run it in one command
+> ```powershell
+> npm i -g @kira905/dsh-diagnostics-extra
+> dsh-attachments-audit          # read-only: session references vs. objects on disk
+> ```
+>
+> ### Real output
+> ```text
+> usage: node attachments-audit.mjs [--home <dir>] [--session <id|prefix>] [--json] [--quiet]
+>                                   [--no-cache] [--cache <file>] [--top <n>] [--sessions-only]
+>                                   [--verify-objects]
+>   Read-only: sha256 referenced by sessions vs. <home>/attachments/v1/objects.
+>   Exit 0 = nothing missing / 3 = missing / 2 = usage error / 4 = environment unavailable
+> ```
+
+---
+
 > A small set of **read-only diagnostic tools** that actually get run when DeepSeek Harness (DSH)
 > misbehaves: **image-attachment reconciliation / recovery** (why a session synced from another
 > machine fails with TRANSPORT on the next turn), **one-command "what is running where"**
