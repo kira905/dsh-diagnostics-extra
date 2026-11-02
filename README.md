@@ -1,5 +1,29 @@
 # dsh-diagnostics-extra · DSH 诊断与对账小工具
 
+> ### 这是什么
+> **诊断与对账小件**：会话图片附件审计与抓取、一条命令体检、待办扫描。
+>
+> ### 它解决什么
+> 三件事最容易变成糊涂账：① 会话里引用的图片，实体还在不在盘上（搬过机 / 清过缓存之后）② 现在到底健不健康（要一条命令，不要十个检查各跑一遍）③ 有哪些事在等人处理（别靠记忆）。这里的器具都把「读不到」和「没有问题」分得很开 —— 读不到是退出码 4，不是"一切正常"。
+>
+> ### 一条命令跑起来
+> ```powershell
+> npm i -g @kira905/dsh-diagnostics-extra
+> dsh-attachments-audit          # 只读对账：会话引用 vs 盘上实体
+> ```
+>
+> ### 先看它长什么样（真实输出）
+> ```text
+> usage: node attachments-audit.mjs [--home <dir>] [--session <id|prefix>] [--json] [--quiet]
+>                                   [--no-cache] [--cache <file>] [--top <n>] [--sessions-only]
+>                                   [--verify-objects]
+>
+>   只读对账：会话引用的 sha256 vs 本机 <home>/attachments/v1/objects 实体。
+>   退出码 0=无缺失 / 3=有缺失 / 2=用法错 / 4=环境不可用（读不到 ≠ 无缺失）
+> ```
+
+---
+
 > **本仓是命令行工具，不挂宿主界面，不需要 `dsh.bundle`、不需要写 `cordis.patch.yml`。** 装它 = `npm i -g @kira905/dsh-diagnostics-extra`（或 `npx -p @kira905/dsh-diagnostics-extra dsh-why`）。装进 profile 也对，但那条 `declares no dsh.bundle` 警告是**正常现象**，不是故障。
 
 ## 装完自检（三条只读验法）
