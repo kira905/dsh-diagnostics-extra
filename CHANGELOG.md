@@ -3,6 +3,19 @@
 All notable changes to this project are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/); versions follow SemVer.
 
+## [0.1.3] - 2026-11-09
+
+### Changed
+
+- `owner-todo-scan.mjs`: the comment above `REDLINE` cited a private in-house policy document as the
+  source of truth. It now says the authoritative policy lives with the consumer of this package
+  ("the consumer's own authorization policy, not shipped in this package"). Comment only.
+- `owner-todo-scan.mjs`: two vendor brand words were removed from the `REDLINE` heuristic (an internal
+  notification-channel name and an IM-platform name). **This does change grading**: text mentioning
+  only those two words no longer grades as a red line. All other terms are unchanged and the
+  heuristic as a whole is kept, so the classification cost stays where it was — a heuristic label on
+  one extra or one missing list row, never a decision.
+
 ## [0.1.2] - 2026-10-31
 
 ### Changed
