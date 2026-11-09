@@ -33,11 +33,11 @@
 
 ---
 
-> **本仓是命令行工具，不挂宿主界面，不需要 `dsh.bundle`、不需要写 `cordis.patch.yml`。** 装它 = `npm i -g @kira905/dsh-diagnostics-extra`（或 `npx -p @kira905/dsh-diagnostics-extra dsh-why`）。装进 profile 也对，但那条 `declares no dsh.bundle` 警告是**正常现象**，不是故障。
+> **本仓是命令行工具，不挂宿主界面，不需要 `dsh.bundle`（插件 `package.json` 里那行「让 DSH 启动时自动挂上我」的声明）、不需要写 `cordis.patch.yml`（DSH 读的插件挂载清单）。** 装它 = `npm i -g @kira905/dsh-diagnostics-extra`（或 `npx -p @kira905/dsh-diagnostics-extra dsh-why`）。装进 `profile`（放插件的那个格子：`~/.dsh/profiles/<名字>`）也对，但那条 `declares no dsh.bundle` 警告是**正常现象**，不是故障。
 
 ## 装完自检（三条只读验法）
 
-`<profile>` 换成你实际用的 profile（默认 `web`），`<数据根>` 换成你的 DSH 数据根（默认 `~/.dsh`）。
+`<profile>` 换成你实际用的 profile（放插件的那个格子，默认 `web`），`<数据根>` 换成你的 DSH 数据根（默认 `~/.dsh`）。
 
 ```powershell
 # ① 组合树里有没有它（只读、约 0.6 秒、不启服务）
@@ -248,7 +248,7 @@ dsh-diagnostics-extra/
 | `--write` | 落 `docs\待你操作-<设备>.md`（**整体重写刷新**） |
 | `--json` | 机器可读（明细最全：`cards[].hits/grades`、`handoffs[].verdict`） |
 
-⚠️ **本件没有帮助命令，未知参数会被静默忽略并直接执行**（`--write` 时就是真写盘）。
+⚠️ **自 2026-10-30 起支持 `-h` / `--help`（打印用法、退出码 0）与未知参数拒收（退出码 2，绝不继续执行）** —— 敲错参数会被拦下，不会带着 `--write` 直接重写清单。
 
 **档位分拣**：每条按「自主授权」关键词分 `🔧甲档(应自办)` / `🔴红线(待主人)` / `❔未定档`；
 甲档条目**不进 Markdown 正文**（只在段头留计数），明细仍完整保留在 `--json`。
